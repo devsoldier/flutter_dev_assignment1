@@ -23,21 +23,23 @@ class MyApp extends StatelessWidget {
           value: UserProvider(),
         )
       ],
-      child: MaterialApp(
-          debugShowCheckedModeBanner: false,
-          title: 'flutter dev assignment',
-          theme: ThemeData(
-            primarySwatch: Colors.blue,
-          ),
-          home: AuthScreen(),
-          routes: {
-            AuthScreen.routeName: (ctx) => AuthScreen(),
-            HomePage.routeName: (ctx) => HomePage(),
-            UserScreen.routeName: (ctx) => UserScreen(),
-            UserDetailScreen.routeName: (ctx) => UserDetailScreen(),
-            ResourceScreen.routeName: (ctx) => ResourceScreen(),
-            ResourceDetailScreen.routeName: (ctx) => ResourceDetailScreen(),
-          }),
+      child: Consumer<UserProvider>(
+        builder: (ctx, data, __) => MaterialApp(
+            debugShowCheckedModeBanner: false,
+            title: 'flutter dev assignment',
+            theme: ThemeData(
+              primarySwatch: Colors.blue,
+            ),
+            home: AuthScreen(),
+            routes: {
+              AuthScreen.routeName: (ctx) => AuthScreen(),
+              HomePage.routeName: (ctx) => HomePage(),
+              UserScreen.routeName: (ctx) => UserScreen(),
+              UserDetailScreen.routeName: (ctx) => UserDetailScreen(),
+              ResourceScreen.routeName: (ctx) => ResourceScreen(),
+              ResourceDetailScreen.routeName: (ctx) => ResourceDetailScreen(),
+            }),
+      ),
     );
   }
 }

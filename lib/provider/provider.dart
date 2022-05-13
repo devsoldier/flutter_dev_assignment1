@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'model.dart';
 
 class UserProvider with ChangeNotifier {
   List<UserDetails> userdetails = [];
-  List<BookDetails> bookdetails = [];
+  List<PaginationDetails> bookdetails = [];
   List<ResourceDetails> resourcedetails = [];
-  bool? isAuthenticated;
+  bool isAuthenticated = false;
   String? token;
   String? error;
 
@@ -19,7 +20,7 @@ class UserProvider with ChangeNotifier {
     final response = await http.get(url);
     final responsedata = json.decode(response.body);
 
-    bookdetails.add(BookDetails(
+    bookdetails.add(PaginationDetails(
         page: responsedata["page"],
         per_page: responsedata["per_page"],
         total: responsedata["total"],
@@ -53,7 +54,7 @@ class UserProvider with ChangeNotifier {
     final response = await http.get(url);
     final responsedata = json.decode(response.body);
 
-    bookdetails.add(BookDetails(
+    bookdetails.add(PaginationDetails(
         page: responsedata["page"],
         per_page: responsedata["per_page"],
         total: responsedata["total"],
@@ -102,6 +103,9 @@ class UserProvider with ChangeNotifier {
     print('authentication: $isAuthenticated');
     print('ERROR: $error');
     notifyListeners();
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setBool('isAuthenticated', isAuthenticated);
+    print('pref value: $prefs');
   }
 
   Future<void> login(String email, String password) async {
@@ -125,11 +129,16 @@ class UserProvider with ChangeNotifier {
     print('authentication: $isAuthenticated');
     print('ERROR: $error');
     notifyListeners();
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setBool('isAuthenticated', isAuthenticated);
+    print('pref value: $prefs');
   }
 
   Future<void> logout() async {
     isAuthenticated = false;
     print('authentication: $isAuthenticated');
     notifyListeners();
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setBool('isAuthenticated', isAuthenticated);
   }
 }
