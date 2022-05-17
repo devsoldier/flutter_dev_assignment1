@@ -28,11 +28,11 @@ class UserDetailScreen extends StatelessWidget {
                       child: ListTile(
                         leading: Image.network(data.avatar),
                         title: Text(
-                          data.fname,
+                          data.firstName,
                           style: TextStyle(color: Colors.white, fontSize: 18),
                         ),
                         subtitle: Text(
-                          data.lname,
+                          data.lastName,
                           style: TextStyle(color: Colors.white, fontSize: 18),
                         ),
                         trailing: Text(

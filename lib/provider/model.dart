@@ -3,19 +3,20 @@ import 'package:json_annotation/json_annotation.dart';
 
 part 'model.g.dart';
 
-@JsonSerializable(genericArgumentFactories: true)
+@JsonSerializable(
+    genericArgumentFactories: true, fieldRename: FieldRename.snake)
 class PaginationDetails<T> {
   final int page;
-  final int per_page;
+  final int perPage;
   final int total;
-  final int total_pages;
+  final int totalPages;
   final List<T> data;
 
   PaginationDetails({
     required this.page,
-    required this.per_page,
+    required this.perPage,
     required this.total,
-    required this.total_pages,
+    required this.totalPages,
     required this.data,
   });
 
@@ -26,32 +27,32 @@ class PaginationDetails<T> {
   Map<String, dynamic> toJson(Object Function(T) toJsonT) =>
       _$PaginationDetailsToJson(this, toJsonT);
   @override
-  String toString() => '$page, $per_page,$total,$total_pages,$data';
+  String toString() => '$page, $perPage,$total,$totalPages,$data';
 }
 
-@JsonSerializable()
+@JsonSerializable(fieldRename: FieldRename.snake)
 class UserDetails {
   final int id;
   final String email;
-  final String fname;
-  final String lname;
+  final String firstName;
+  final String lastName;
   final String avatar;
 
   UserDetails({
     required this.id,
     required this.email,
-    required this.fname,
-    required this.lname,
+    required this.firstName,
+    required this.lastName,
     required this.avatar,
   });
 
-  factory UserDetails.fromJson(Map<String, dynamic> json) =>
+  static UserDetails fromJson(Map<String, dynamic> json) =>
       _$UserDetailsFromJson(json);
 
   Map<String, dynamic> toJson() => _$UserDetailsToJson(this);
 
   @override
-  String toString() => '$id, $email,$fname,$lname,$avatar';
+  String toString() => '$id, $email,$firstName,$lastName,$avatar';
 }
 
 @JsonSerializable()

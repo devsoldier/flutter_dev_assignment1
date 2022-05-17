@@ -16,8 +16,12 @@ class _AuthScreenState extends State<AuthScreen> {
   final GlobalKey<FormState> authkey = GlobalKey();
   bool validate = false;
 
-  final TextEditingController email = TextEditingController();
-  final TextEditingController password = TextEditingController();
+  final TextEditingController email = TextEditingController(
+    text: 'eve.holt@reqres.in'
+  );
+  final TextEditingController password = TextEditingController(
+    text: 'cityslicka'
+  );
 
   FocusNode emailfocus = FocusNode();
   FocusNode passwordfocus = FocusNode();

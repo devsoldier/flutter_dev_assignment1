@@ -12,9 +12,9 @@ PaginationDetails<T> _$PaginationDetailsFromJson<T>(
 ) =>
     PaginationDetails<T>(
       page: json['page'] as int,
-      per_page: json['per_page'] as int,
+      perPage: json['per_page'] as int,
       total: json['total'] as int,
-      total_pages: json['total_pages'] as int,
+      totalPages: json['total_pages'] as int,
       data: (json['data'] as List<dynamic>).map(fromJsonT).toList(),
     );
 
@@ -24,17 +24,17 @@ Map<String, dynamic> _$PaginationDetailsToJson<T>(
 ) =>
     <String, dynamic>{
       'page': instance.page,
-      'per_page': instance.per_page,
+      'per_page': instance.perPage,
       'total': instance.total,
-      'total_pages': instance.total_pages,
+      'total_pages': instance.totalPages,
       'data': instance.data.map(toJsonT).toList(),
     };
 
 UserDetails _$UserDetailsFromJson(Map<String, dynamic> json) => UserDetails(
       id: json['id'] as int,
       email: json['email'] as String,
-      fname: json['fname'] as String,
-      lname: json['lname'] as String,
+      firstName: json['first_name'] as String,
+      lastName: json['last_name'] as String,
       avatar: json['avatar'] as String,
     );
 
@@ -42,8 +42,8 @@ Map<String, dynamic> _$UserDetailsToJson(UserDetails instance) =>
     <String, dynamic>{
       'id': instance.id,
       'email': instance.email,
-      'fname': instance.fname,
-      'lname': instance.lname,
+      'first_name': instance.firstName,
+      'last_name': instance.lastName,
       'avatar': instance.avatar,
     };
 

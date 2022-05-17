@@ -47,7 +47,7 @@ class _ResourceScreenState extends State<ResourceScreen> {
                           ? CircularProgressIndicator(color: Colors.white)
                           : ListView.builder(
                               shrinkWrap: true,
-                              itemCount: data.resourcedetails?.per_page ?? 0,
+                              itemCount: data.resourcedetails?.perPage ?? 0,
                               itemBuilder: (_, i) => Card(
                                   child: Column(
                                 children: [

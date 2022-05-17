@@ -48,11 +48,11 @@ class _UserScreenState extends State<UserScreen> {
                       width: 300,
                       height: MediaQuery.of(context).size.height * 0.7,
                       color: Colors.blue,
-                      child: (data.userdetails != null)
+                      child: (data.userdetails == null)
                           ? CircularProgressIndicator(color: Colors.white)
                           : ListView.builder(
                               shrinkWrap: true,
-                              itemCount: data.userdetails?.per_page ?? 0,
+                              itemCount: data.userdetails?.perPage ?? 0,
                               itemBuilder: (_, i) => Card(
                                   child: Column(
                                 children: [
@@ -69,13 +69,13 @@ class _UserScreenState extends State<UserScreen> {
                                           leading: Image.network(
                                               '${data.userdetails?.data[i].avatar}'),
                                           title: Text(
-                                            '${data.userdetails?.data[i].fname}',
+                                            '${data.userdetails?.data[i].firstName}',
                                             style: TextStyle(
                                                 color: Colors.white,
                                                 fontSize: 15),
                                           ),
                                           subtitle: Text(
-                                            '${data.userdetails?.data[i].lname}',
+                                            '${data.userdetails?.data[i].lastName}',
                                             style: TextStyle(
                                                 color: Colors.white,
                                                 fontSize: 15),
@@ -109,7 +109,7 @@ class _UserScreenState extends State<UserScreen> {
                       width: MediaQuery.of(context).size.width * 0.8,
                       child: ListView.builder(
                           scrollDirection: Axis.horizontal,
-                          itemCount: data.userdetails?.total_pages ?? 0,
+                          itemCount: data.userdetails?.totalPages ?? 0,
                           itemBuilder: (_, i) => GestureDetector(
                                 onTap: () {
                                   setState(() {

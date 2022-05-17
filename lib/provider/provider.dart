@@ -18,23 +18,27 @@ class UserProvider with ChangeNotifier {
     final url = Uri.parse('https://reqres.in/api/users?page=${page}');
     final response = await http.get(url);
     final responsedata = json.decode(response.body);
-    final userdetails = PaginationDetails<UserDetails>(
-      page: responsedata["page"],
-      per_page: responsedata["per_page"],
-      total: responsedata["total"],
-      total_pages: responsedata["total_pages"],
-      data: (responsedata["data"] as List)
-          .map((e) => UserDetails(
-              id: e["id"],
-              email: e["email"],
-              fname: e["first_name"],
-              lname: e["last_name"],
-              avatar: e["avatar"]))
-          .toList(),
+    // userdetails = PaginationDetails<UserDetails>(
+    //   page: responsedata["page"],
+    //   per_page: responsedata["per_page"],
+    //   total: responsedata["total"],
+    //   total_pages: responsedata["total_pages"],
+    //   data: (responsedata["data"] as List)
+    //       .map((e) => UserDetails(
+    //           id: e["id"],
+    //           email: e["email"],
+    //           fname: e["first_name"],
+    //           lname: e["last_name"],
+    //           avatar: e["avatar"]))
+    //       .toList(),
+    // );
+    userdetails = PaginationDetails<UserDetails>.fromJson(
+      responsedata,
+      (json) => UserDetails.fromJson(json as Map<String, dynamic>),
     );
-    print(userdetails.per_page); //prints 6
-    print(userdetails.data); //prints the list
-    print(userdetails.data[1].fname); //prints janet
+    print(userdetails?.perPage); //prints 6
+    print(userdetails?.data); //prints the list
+    print(userdetails?.data[1].firstName); //prints janet
     notifyListeners();
   }
 
@@ -44,9 +48,9 @@ class UserProvider with ChangeNotifier {
     final responsedata = json.decode(response.body);
     final resourcedetails = PaginationDetails<ResourceDetails>(
       page: responsedata["page"],
-      per_page: responsedata["per_page"],
+      perPage: responsedata["per_page"],
       total: responsedata["total"],
-      total_pages: responsedata["total_pages"],
+      totalPages: responsedata["total_pages"],
       data: (responsedata["data"] as List)
           .map((e) => ResourceDetails(
               id: e["id"],
