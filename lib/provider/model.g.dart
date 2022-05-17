@@ -6,6 +6,30 @@ part of 'model.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
+PaginationDetails<T> _$PaginationDetailsFromJson<T>(
+  Map<String, dynamic> json,
+  T Function(Object? json) fromJsonT,
+) =>
+    PaginationDetails<T>(
+      page: json['page'] as int,
+      per_page: json['per_page'] as int,
+      total: json['total'] as int,
+      total_pages: json['total_pages'] as int,
+      data: (json['data'] as List<dynamic>).map(fromJsonT).toList(),
+    );
+
+Map<String, dynamic> _$PaginationDetailsToJson<T>(
+  PaginationDetails<T> instance,
+  Object? Function(T value) toJsonT,
+) =>
+    <String, dynamic>{
+      'page': instance.page,
+      'per_page': instance.per_page,
+      'total': instance.total,
+      'total_pages': instance.total_pages,
+      'data': instance.data.map(toJsonT).toList(),
+    };
+
 UserDetails _$UserDetailsFromJson(Map<String, dynamic> json) => UserDetails(
       id: json['id'] as int,
       email: json['email'] as String,
@@ -39,20 +63,4 @@ Map<String, dynamic> _$ResourceDetailsToJson(ResourceDetails instance) =>
       'year': instance.year,
       'color': instance.color,
       'pantone': instance.pantone,
-    };
-
-PaginationDetails _$PaginationDetailsFromJson(Map<String, dynamic> json) =>
-    PaginationDetails(
-      page: json['page'] as int,
-      per_page: json['per_page'] as int,
-      total: json['total'] as int,
-      total_pages: json['total_pages'] as int,
-    );
-
-Map<String, dynamic> _$PaginationDetailsToJson(PaginationDetails instance) =>
-    <String, dynamic>{
-      'page': instance.page,
-      'per_page': instance.per_page,
-      'total': instance.total,
-      'total_pages': instance.total_pages,
     };

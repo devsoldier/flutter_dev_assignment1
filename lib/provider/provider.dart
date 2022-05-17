@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_dev_assignment/screen/user_detail.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
@@ -6,78 +7,57 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'model.dart';
 
 class UserProvider with ChangeNotifier {
-  List<UserDetails> userdetails = [];
-  List<PaginationDetails> bookdetails = [];
-  List<ResourceDetails> resourcedetails = [];
+  PaginationDetails<UserDetails>? userdetails;
+  PaginationDetails<ResourceDetails>? resourcedetails;
   bool isAuthenticated = false;
   String? token;
   String? error;
+  // PaginationDetails<UserDetails> data;
 
   Future<void> getusers(int page) async {
-    userdetails.clear();
-    bookdetails.clear();
     final url = Uri.parse('https://reqres.in/api/users?page=${page}');
     final response = await http.get(url);
     final responsedata = json.decode(response.body);
-
-    bookdetails.add(PaginationDetails(
-        page: responsedata["page"],
-        per_page: responsedata["per_page"],
-        total: responsedata["total"],
-        total_pages: responsedata["total_pages"]));
-    print('page:${bookdetails[0].page}');
-    print('per_page:${bookdetails[0].per_page}');
-    print('total:${bookdetails[0].total}');
-    print('total pages:${bookdetails[0].total_pages}');
-
-    for (int i = 0; i < responsedata["data"].length; i++) {
-      userdetails.add(
-        UserDetails(
-          id: responsedata["data"][i]["id"],
-          email: responsedata["data"][i]["email"],
-          fname: responsedata["data"][i]["first_name"],
-          lname: responsedata["data"][i]["last_name"],
-          avatar: responsedata["data"][i]["avatar"],
-        ),
-      );
-    }
-    print(userdetails.length);
-    print(userdetails);
-
+    final userdetails = PaginationDetails<UserDetails>(
+      page: responsedata["page"],
+      per_page: responsedata["per_page"],
+      total: responsedata["total"],
+      total_pages: responsedata["total_pages"],
+      data: (responsedata["data"] as List)
+          .map((e) => UserDetails(
+              id: e["id"],
+              email: e["email"],
+              fname: e["first_name"],
+              lname: e["last_name"],
+              avatar: e["avatar"]))
+          .toList(),
+    );
+    print(userdetails.per_page); //prints 6
+    print(userdetails.data); //prints the list
+    print(userdetails.data[1].fname); //prints janet
     notifyListeners();
   }
 
   Future<void> getresource() async {
-    userdetails.clear();
-    bookdetails.clear();
     final url = Uri.parse('https://reqres.in/api/unknown}');
     final response = await http.get(url);
     final responsedata = json.decode(response.body);
-
-    bookdetails.add(PaginationDetails(
-        page: responsedata["page"],
-        per_page: responsedata["per_page"],
-        total: responsedata["total"],
-        total_pages: responsedata["total_pages"]));
-    print('page:${bookdetails[0].page}');
-    print('per_page:${bookdetails[0].per_page}');
-    print('total:${bookdetails[0].total}');
-    print('total pages:${bookdetails[0].total_pages}');
-
-    for (int i = 0; i < responsedata["data"].length; i++) {
-      resourcedetails.add(
-        ResourceDetails(
-          id: responsedata["data"][i]["id"],
-          name: responsedata["data"][i]["name"],
-          year: responsedata["data"][i]["year"],
-          color: responsedata["data"][i]["color"],
-          pantone: responsedata["data"][i]["pantone_value"],
-        ),
-      );
-    }
-    print(resourcedetails.length);
+    final resourcedetails = PaginationDetails<ResourceDetails>(
+      page: responsedata["page"],
+      per_page: responsedata["per_page"],
+      total: responsedata["total"],
+      total_pages: responsedata["total_pages"],
+      data: (responsedata["data"] as List)
+          .map((e) => ResourceDetails(
+              id: e["id"],
+              name: e["name"],
+              year: e["year"],
+              color: e["color"],
+              pantone: e["pantone_value"]))
+          .toList(),
+    );
+    print(resourcedetails.data);
     print(resourcedetails);
-
     notifyListeners();
   }
 

@@ -48,11 +48,11 @@ class _UserScreenState extends State<UserScreen> {
                       width: 300,
                       height: MediaQuery.of(context).size.height * 0.7,
                       color: Colors.blue,
-                      child: (data.bookdetails.isEmpty)
+                      child: (data.userdetails != null)
                           ? CircularProgressIndicator(color: Colors.white)
                           : ListView.builder(
                               shrinkWrap: true,
-                              itemCount: data.bookdetails[0].per_page,
+                              itemCount: data.userdetails?.per_page ?? 0,
                               itemBuilder: (_, i) => Card(
                                   child: Column(
                                 children: [
@@ -62,25 +62,26 @@ class _UserScreenState extends State<UserScreen> {
                                         onTap: () {
                                           Navigator.of(context).pushNamed(
                                               UserDetailScreen.routeName,
-                                              arguments: data.userdetails[i]);
+                                              arguments:
+                                                  data.userdetails?.data[i]);
                                         },
                                         child: ListTile(
                                           leading: Image.network(
-                                              '${data.userdetails[i].avatar}'),
+                                              '${data.userdetails?.data[i].avatar}'),
                                           title: Text(
-                                            '${data.userdetails[i].fname}',
+                                            '${data.userdetails?.data[i].fname}',
                                             style: TextStyle(
                                                 color: Colors.white,
                                                 fontSize: 15),
                                           ),
                                           subtitle: Text(
-                                            '${data.userdetails[i].lname}',
+                                            '${data.userdetails?.data[i].lname}',
                                             style: TextStyle(
                                                 color: Colors.white,
                                                 fontSize: 15),
                                           ),
                                           trailing: Text(
-                                            '${data.userdetails[i].email}',
+                                            '${data.userdetails?.data[i].email}',
                                             style: TextStyle(
                                                 color: Colors.white,
                                                 fontSize: 10),
@@ -101,14 +102,14 @@ class _UserScreenState extends State<UserScreen> {
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              (data.bookdetails.isEmpty)
+              (data.userdetails != null)
                   ? CircularProgressIndicator()
                   : Container(
                       height: 30,
                       width: MediaQuery.of(context).size.width * 0.8,
                       child: ListView.builder(
                           scrollDirection: Axis.horizontal,
-                          itemCount: data.bookdetails[0].total_pages,
+                          itemCount: data.userdetails?.total_pages ?? 0,
                           itemBuilder: (_, i) => GestureDetector(
                                 onTap: () {
                                   setState(() {

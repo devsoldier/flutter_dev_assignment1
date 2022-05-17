@@ -43,11 +43,11 @@ class _ResourceScreenState extends State<ResourceScreen> {
                       width: 300,
                       height: MediaQuery.of(context).size.height * 0.7,
                       color: Colors.blue,
-                      child: (data.resourcedetails.isEmpty)
+                      child: (data.resourcedetails != null)
                           ? CircularProgressIndicator(color: Colors.white)
                           : ListView.builder(
                               shrinkWrap: true,
-                              itemCount: data.bookdetails[0].per_page,
+                              itemCount: data.resourcedetails?.per_page ?? 0,
                               itemBuilder: (_, i) => Card(
                                   child: Column(
                                 children: [
@@ -57,31 +57,33 @@ class _ResourceScreenState extends State<ResourceScreen> {
                                         onTap: () {
                                           Navigator.of(context).pushNamed(
                                               ResourceDetailScreen.routeName,
-                                              arguments:
-                                                  data.resourcedetails[i]);
+                                              arguments: data
+                                                  .resourcedetails?.data[i]);
                                         },
                                         child: ListTile(
                                           leading: Container(
                                               width: 50,
                                               height: 50,
                                               color: Color(int.parse((data
-                                                      .resourcedetails[i].color)
+                                                      .resourcedetails
+                                                      ?.data[i]
+                                                      .color)!
                                                   .replaceAll('#', '0xff')
                                                   .toString()))),
                                           title: Text(
-                                            '${data.resourcedetails[i].name}',
+                                            '${data.resourcedetails?.data[i].name}',
                                             style: TextStyle(
                                                 color: Colors.white,
                                                 fontSize: 15),
                                           ),
                                           subtitle: Text(
-                                            'year ${data.resourcedetails[i].year}',
+                                            'year ${data.resourcedetails?.data[i].year}',
                                             style: TextStyle(
                                                 color: Colors.white,
                                                 fontSize: 15),
                                           ),
                                           trailing: Text(
-                                            '${data.resourcedetails[i].pantone}',
+                                            '${data.resourcedetails?.data[i].pantone}',
                                             style: TextStyle(
                                                 color: Colors.white,
                                                 fontSize: 10),
