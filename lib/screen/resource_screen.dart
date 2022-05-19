@@ -43,7 +43,7 @@ class _ResourceScreenState extends State<ResourceScreen> {
                       width: 300,
                       height: MediaQuery.of(context).size.height * 0.7,
                       color: Colors.blue,
-                      child: (data.resourcedetails != null)
+                      child: (data.resourcedetails == null)
                           ? CircularProgressIndicator(color: Colors.white)
                           : ListView.builder(
                               shrinkWrap: true,

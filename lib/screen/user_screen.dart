@@ -102,7 +102,7 @@ class _UserScreenState extends State<UserScreen> {
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              (data.userdetails != null)
+              (data.userdetails == null)
                   ? CircularProgressIndicator()
                   : Container(
                       height: 30,

@@ -46,7 +46,7 @@ class UserProvider with ChangeNotifier {
     final url = Uri.parse('https://reqres.in/api/unknown}');
     final response = await http.get(url);
     final responsedata = json.decode(response.body);
-    final resourcedetails = PaginationDetails<ResourceDetails>(
+    resourcedetails = PaginationDetails<ResourceDetails>(
       page: responsedata["page"],
       perPage: responsedata["per_page"],
       total: responsedata["total"],
@@ -60,7 +60,7 @@ class UserProvider with ChangeNotifier {
               pantone: e["pantone_value"]))
           .toList(),
     );
-    print(resourcedetails.data);
+    print(resourcedetails?.data);
     print(resourcedetails);
     notifyListeners();
   }
