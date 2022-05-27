@@ -58,7 +58,7 @@ android {
 
    signingConfigs {
        production {
-            if (System.getenv("production")["production"]) { 
+            if (System.getenv()["production"]) { 
                 keyAlias System.getenv("BITRISEIO_ANDROID_KEYSTORE_ALIAS")
                 keyPassword System.getenv("BITRISEIO_ANDROID_KEYSTORE_PRIVATE_KEY_PASSWORD")
                 storeFile file(System.getenv("HOME") + "/git/android/upload-keystore.jks")
@@ -71,7 +71,7 @@ android {
             }
        }
        preprod {
-            if (System.getenv("preprod")["preprod"]) { 
+            if (System.getenv()["preprod"]) { 
                 keyAlias System.getenv("BITRISEIO_ANDROID_KEYSTORE_ALIAS")
                 keyPassword System.getenv("BITRISEIO_ANDROID_KEYSTORE_PRIVATE_KEY_PASSWORD")
                 storeFile file(System.getenv("HOME") + "/git/android/upload-keystore.jks")
@@ -85,7 +85,7 @@ android {
             }
         }
         staging {
-            if (System.getenv("staging")["staging"]) { 
+            if (System.getenv()["staging"]) { 
                 keyAlias System.getenv("BITRISEIO_ANDROID_KEYSTORE_ALIAS")
                 keyPassword System.getenv("BITRISEIO_ANDROID_KEYSTORE_PRIVATE_KEY_PASSWORD")
                 storeFile file(System.getenv("HOME") + "/git/android/upload-keystore.jks")
