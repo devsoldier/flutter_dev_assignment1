@@ -115,12 +115,12 @@ android {
     productFlavors {
         staging {
             signingConfig signingConfigs.production
-            applicationIdSuffix '.staging'
+            // applicationIdSuffix '.staging'
             resValue "string", "app_name", 'flutdev (Staging)'
         }
         preprod {
             signingConfig signingConfigs.preprod
-            applicationIdSuffix '.preprod'
+            // applicationIdSuffix '.preprod'
             resValue "string", "app_name", 'flutdev (Preprod)'
         }
         production {
