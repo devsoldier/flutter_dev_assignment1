@@ -58,7 +58,7 @@ android {
 
    signingConfigs {
        production {
-            if (System.getenv("PRODUCTION")["PRODUCTION"]) { 
+            if (System.getenv("production")["production"]) { 
                 keyAlias System.getenv("BITRISEIO_ANDROID_KEYSTORE_ALIAS")
                 keyPassword System.getenv("BITRISEIO_ANDROID_KEYSTORE_PRIVATE_KEY_PASSWORD")
                 storeFile file(System.getenv("HOME") + "/git/android/upload-keystore.jks")
@@ -71,7 +71,7 @@ android {
             }
        }
        preprod {
-            if (System.getenv("PREPROD")["PREPROD"]) { 
+            if (System.getenv("preprod")["preprod"]) { 
                 keyAlias System.getenv("BITRISEIO_ANDROID_KEYSTORE_ALIAS")
                 keyPassword System.getenv("BITRISEIO_ANDROID_KEYSTORE_PRIVATE_KEY_PASSWORD")
                 storeFile file(System.getenv("HOME") + "/git/android/upload-keystore.jks")
@@ -85,7 +85,7 @@ android {
             }
         }
         staging {
-            if (System.getenv("STAGING")["STAGING"]) { 
+            if (System.getenv("staging")["staging"]) { 
                 keyAlias System.getenv("BITRISEIO_ANDROID_KEYSTORE_ALIAS")
                 keyPassword System.getenv("BITRISEIO_ANDROID_KEYSTORE_PRIVATE_KEY_PASSWORD")
                 storeFile file(System.getenv("HOME") + "/git/android/upload-keystore.jks")
@@ -101,12 +101,30 @@ android {
    
    buildTypes {
        release {
-           signingConfig signingConfigs.release
+           //signingConfig signingConfigs.release
        }
         debug {
-            signingConfig signingConfigs.debug
+            //signingConfig signingConfigs.debug
         }
-   }
+    }
+
+    flavorDimensions "env"
+
+    productFlavors {
+        staging {
+            signingConfig signingConfigs.production
+            applicationIdSuffix '.staging'
+            resValue "string", "app_name", 'flutdev (Staging)'
+        }
+        preprod {
+            signingConfig signingConfigs.preprod
+            applicationIdSuffix '.preprod'
+            resValue "string", "app_name", 'flutdev (Preprod)'
+        }
+        production {
+            signingConfig signingConfigs.production
+        }
+    }
 
 }
 
