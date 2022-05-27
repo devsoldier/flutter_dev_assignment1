@@ -70,7 +70,7 @@ android {
                 storePassword keystoreProperties['storePassword']
             }
        }
-        preprod {
+       preprod {
             if (System.getenv("PREPROD")["PREPROD"]) { 
                 keyAlias System.getenv("BITRISEIO_ANDROID_KEYSTORE_ALIAS")
                 keyPassword System.getenv("BITRISEIO_ANDROID_KEYSTORE_PRIVATE_KEY_PASSWORD")
