@@ -54,6 +54,8 @@ android {
         targetSdkVersion flutter.targetSdkVersion
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
+        resValue "string", "app_name", 'flutdev'
+        resConfigs "en", "zh-rCN"
     }
 
    signingConfigs {
@@ -113,13 +115,13 @@ android {
     productFlavors {
         staging {
             signingConfig signingConfigs.production
-            // applicationIdSuffix '.staging'
-            // resValue "string", "app_name", 'flutdev (Staging)'
+            applicationIdSuffix '.staging'
+            resValue "string", "app_name", 'flutdev (Staging)'
         }
         preprod {
             signingConfig signingConfigs.preprod
-            // applicationIdSuffix '.preprod'
-            // resValue "string", "app_name", 'flutdev (Preprod)'
+            applicationIdSuffix '.preprod'
+            resValue "string", "app_name", 'flutdev (Preprod)'
         }
         production {
             signingConfig signingConfigs.production
